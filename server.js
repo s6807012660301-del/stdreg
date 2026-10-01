@@ -10,7 +10,7 @@ app.use(methodOverride('_method'));   // lets HTML forms send PUT / DELETE
 app.use(express.static('public'));
 app.use('/', require('./routes/studentRoutes'));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/student_register';
 
 mongoose.connect(URI)
