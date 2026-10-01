@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+<section class="formwrap">
+  <h1><%= action.includes('PUT') ? 'Edit student' : 'Register a student' %></h1>
+  <% if (error) { %><div class="alert"><%= error %></div><% } %>
+  <form method="<%= method %>" action="<%= action %>" class="form">
+    <label>Student ID <input name="studentId" value="<%= student.studentId || '' %>" required placeholder="e.g. 66010123"></label>
+    <label>Full name <input name="fullName" value="<%= student.fullName || '' %>" required></label>
+    <label>Email <input type="email" name="email" value="<%= student.email || '' %>" required></label>
+    <label>Major <input name="major" value="<%= student.major || '' %>" required placeholder="e.g. Computer Science"></label>
+    <label>Year <select name="year"><% for (let y = 1; y <= 6; y++) { %><option value="<%= y %>" <%= Number(student.year) === y ? 'selected' : '' %>><%= y %></option><% } %></select></label>
+    <label>Courses (separate with commas) <input name="courses" value="<%= student.courses || '' %>" placeholder="Database Systems, Web Development"></label>
+    <div class="card-actions">
+      <button class="btn btn-pink">Save student</button>
+      <a class="btn btn-ghost" href="/">Cancel</a>
+    </div>
+  </form>
+</section>
+<%- include('partials/footer') %>
