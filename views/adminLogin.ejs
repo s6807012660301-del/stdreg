@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+<section class="formwrap">
+  <h1>Admin sign in</h1>
+  <% if (error) { %><div class="alert"><%= error %></div><% } %>
+  <form method="POST" action="/admin/login" class="form">
+    <label>Username <input name="username" autocomplete="username" required autofocus></label>
+    <label>Password <input type="password" name="password" autocomplete="current-password" required></label>
+    <div class="card-actions">
+      <button class="btn btn-pink">Sign in</button>
+      <a class="btn btn-ghost" href="/">Cancel</a>
+    </div>
+  </form>
+</section>
+<%- include('partials/footer') %>

@@ -1,9 +1,9 @@
 <%- include('partials/header') %>
 <section class="hero">
-  <h1>Who's enrolled this term?</h1>
+  <h1><%= isAdmin ? 'Student administration' : "Who's enrolled this term?" %></h1>
   <p><%= students.length %> student<%= students.length === 1 ? '' : 's' %> <%= q ? 'match "' + q + '"' : 'registered' %></p>
-  <form class="search" method="GET" action="/">
-    <input name="q" value="<%= q %>" placeholder="Search by name, ID, major or course">
+  <form class="search" method="GET" action="<%= isAdmin ? '/admin' : '/' %>">
+    <input name="q" value="<%= q %>" placeholder="<%= isAdmin ? 'Search by name, ID, major or course' : 'Search by name, major or course' %>">
     <button class="btn btn-teal">Search</button>
   </form>
 </section>
@@ -17,16 +17,18 @@
   <article class="card c-<%= colors[i % colors.length] %>">
     <div class="avatar"><%= s.fullName.charAt(0).toUpperCase() %></div>
     <h2><%= s.fullName %></h2>
-    <p class="meta"><%= s.studentId %> · Year <%= s.year %></p>
+    <p class="meta"><%= isAdmin ? `ID ${s.studentId} · ` : '' %>Year <%= s.year %></p>
     <p><strong><%= s.major %></strong></p>
     <p class="email"><%= s.email %></p>
     <div class="chips"><% s.courses.forEach(c => { %><span><%= c %></span><% }) %></div>
-    <div class="card-actions">
-      <a class="btn btn-small btn-blue" href="/students/<%= s._id %>/edit">Edit</a>
-      <form method="POST" action="/students/<%= s._id %>?_method=DELETE" onsubmit="return confirm('Delete <%= s.fullName.replace(/'/g, "") %>?')">
-        <button class="btn btn-small btn-red">Delete</button>
-      </form>
-    </div>
+    <% if (isAdmin) { %>
+      <div class="card-actions">
+        <a class="btn btn-small btn-blue" href="/admin/students/<%= s._id %>/edit">Edit</a>
+        <form method="POST" action="/admin/students/<%= s._id %>?_method=DELETE" onsubmit="return confirm('Delete <%= s.fullName.replace(/'/g, "") %>?')">
+          <button class="btn btn-small btn-red">Delete</button>
+        </form>
+      </div>
+    <% } %>
   </article>
   <% }) %>
 </div>

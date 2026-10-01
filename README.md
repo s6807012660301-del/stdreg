@@ -3,8 +3,11 @@
 ## 1. Run it
 1. Install Node.js (v18+) and MongoDB Community (or create a free MongoDB Atlas cluster).
 2. `cd student-register && npm install`
-3. `cp .env.example .env`  (for Atlas, paste your connection string into `MONGO_URI`)
-4. `npm start` → open http://localhost:3000
+3. Set `MONGO_URI` in `.env` to your MongoDB connection string.
+4. Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` in `.env` to credentials of your choice.
+5. `npm start` → open http://localhost:3000
+
+The public page lets visitors view students and register. Student IDs are only shown in `/admin`; edit and delete actions are also restricted to that route. Admins sign in at `/admin/login` using the credentials in `.env`. Use HTTPS when deploying outside your local machine.
 
 ## 2. Directory structure (MVC)
 ```
@@ -25,9 +28,9 @@ Request flow: Browser → Route → Controller → Model → MongoDB → Control
 | Operation | HTTP route | Mongoose call | MongoDB shell |
 |---|---|---|---|
 | Create | POST /students | `Student.create()` | `insertOne()` |
-| Read | GET / (+ `?q=`) | `Student.find()` | `find()` |
-| Update | PUT /students/:id | `findByIdAndUpdate()` | `updateOne()` |
-| Delete | DELETE /students/:id | `findByIdAndDelete()` | `deleteOne()` |
+| Read | GET / (+ `?q=`) and GET /admin | `Student.find()` | `find()` |
+| Update | PUT /admin/students/:id | `findByIdAndUpdate()` | `updateOne()` |
+| Delete | DELETE /admin/students/:id | `findByIdAndDelete()` | `deleteOne()` |
 
 ## 4. NoSQL (MongoDB) guideline
 - **Concept:** NoSQL = "not only SQL". MongoDB stores flexible JSON-like **documents** (BSON), no fixed tables or JOINs.

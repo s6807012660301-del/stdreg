@@ -11,7 +11,7 @@
     <label>Courses (separate with commas) <input name="courses" value="<%= student.courses || '' %>" placeholder="Database Systems, Web Development"></label>
     <div class="card-actions">
       <button class="btn btn-pink">Save student</button>
-      <a class="btn btn-ghost" href="/">Cancel</a>
+      <a class="btn btn-ghost" href="<%= isAdmin ? '/admin' : '/' %>">Cancel</a>
     </div>
   </form>
 </section>
